@@ -1,6 +1,6 @@
 import { auth } from '../config/firebase';
 
-const API_URL = 'http://localhost:5000/api/tickets';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/tickets';
 
 // Helper to get token (Async)
 const getAuthHeader = async () => {

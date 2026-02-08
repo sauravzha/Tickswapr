@@ -1,175 +1,88 @@
-# TickSwapr 🎫
+# 🎫 TickSwapr
 
-India's trusted Gen-Z ticket resale marketplace. Buy and sell verified tickets for concerts, movies, trains, buses, and sports events with 100% buyer protection.
-
-![TickSwapr](https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=1200)
+A modern ticket marketplace platform where users can list and discover tickets for concerts, movies, trains, buses, and sports events.
 
 ## ✨ Features
 
-- 🎵 **Multi-Category Support** - Concerts, Movies, Trains, Buses, Sports
-- ✅ **Verified Tickets** - Manual verification by admin
-- 🔒 **Secure Payments** - Razorpay integration with escrow
-- 🛡️ **Buyer Protection** - 100% money-back guarantee
-- 🎨 **Premium UI** - Glassmorphism, animations, dark theme
-- 📱 **Fully Responsive** - Works on all devices
-- 🚀 **Fast & Modern** - Built with React + Vite
+- **Ticket Listings** - List any type of ticket (Concert, Movie, Train, Bus, Sports)
+- **Direct Contact** - Buyers contact sellers directly via chat, email, or phone
+- **No Payment Processing** - Peer-to-peer arrangement for maximum flexibility
+- **Modern UI** - Beautiful glassmorphism design with smooth animations
+- **Mobile Responsive** - Works perfectly on all devices
 
-## 🛠️ Tech Stack
+## 🚀 Tech Stack
 
-- **Frontend:** React 18, Vite, Tailwind CSS
-- **Animations:** Framer Motion
-- **Backend:** Firebase (Auth, Firestore, Storage)
-- **Payments:** Razorpay
-- **Icons:** Lucide React
-- **Deployment:** Vercel
+- **Frontend**: React + Vite + Tailwind CSS + Framer Motion
+- **Backend**: Express.js with JSON file storage
+- **Auth**: Firebase Authentication
 
-## 🚀 Quick Start
+## 📦 Quick Start
 
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-- Firebase project
-- Razorpay account (for payments)
-
-### Installation
-
-1. Clone the repository
+### Development
 
 ```bash
-git clone https://github.com/yourusername/tickswapr.git
-cd tickswapr
-```
-
-1. Install dependencies
-
-```bash
+# Terminal 1: Frontend
 npm install
-```
-
-1. Set up environment variables
-
-```bash
-cp .env.example .env
-# Edit .env with your Firebase and Razorpay credentials
-```
-
-1. Start development server
-
-```bash
 npm run dev
+
+# Terminal 2: Backend
+cd server
+npm install
+node index.js
 ```
 
-1. Build for production
+- Frontend: <http://localhost:5173>
+- Backend: <http://localhost:5000>
 
-```bash
-npm run build
-```
+## 🌐 Production Deployment
+
+### Backend (Railway)
+
+1. Go to [railway.app](https://railway.app)
+2. New Project → Deploy from GitHub
+3. Select this repo, set Root Directory: `server`
+4. Auto-deploys on push!
+
+### Frontend (Vercel)
+
+1. Go to [vercel.com](https://vercel.com)
+2. Import Project → Select this repo
+3. Add env variable: `VITE_API_URL` = your Railway URL + `/api/tickets`
+4. Deploy!
 
 ## 📁 Project Structure
 
 ```
-src/
-├── components/
-│   ├── home/         # Landing page sections
-│   ├── layout/       # Navbar, Footer
-│   ├── payment/      # Razorpay checkout
-│   ├── tickets/      # Ticket cards, forms
-│   └── ui/           # Reusable UI components
-├── config/
-│   └── firebase.js   # Firebase configuration
-├── contexts/
-│   └── AuthContext.jsx
-├── hooks/
-│   └── useTickets.js
-├── pages/
-│   ├── Home.jsx
-│   ├── Browse.jsx
-│   ├── Sell.jsx
-│   ├── TicketDetail.jsx
-│   ├── Dashboard.jsx
-│   └── AdminDashboard.jsx
-└── services/
-    ├── ticketService.js
-    └── paymentService.js
+TickSwapr/
+├── src/                    # React frontend
+│   ├── components/         # UI components
+│   ├── pages/             # Page components
+│   └── services/          # API services
+├── server/                 # Express backend
+│   ├── routes/            # API routes
+│   ├── services/          # Business logic
+│   └── data/              # JSON storage
+└── public/                # Static assets
 ```
 
-## 🔐 Environment Variables
+## 🔑 Environment Variables
 
-```env
-# Firebase
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=your_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-VITE_FIREBASE_APP_ID=your_app_id
+### Frontend (.env)
 
-# Razorpay
-VITE_RAZORPAY_KEY_ID=rzp_test_xxxxx
-
-# Admin (only this email can access /admin)
-VITE_ADMIN_EMAIL=admin@example.com
+```
+VITE_API_URL=http://localhost:5000/api/tickets
 ```
 
-## 👑 Admin Panel
+### Backend (server/.env)
 
-Access the admin panel at `/admin` (only for authorized admin email).
-
-Features:
-
-- 📊 Dashboard with stats
-- ✅ Ticket verification queue
-- 👥 User management
-- 🛒 Order tracking
-- ⚠️ Dispute handling
-- 📈 Analytics
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-
-1. Push to GitHub
-2. Import project in Vercel
-3. Add environment variables
-4. Deploy!
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/tickswapr)
-
-### Netlify
-
-```bash
-npm run build
-# Upload dist folder to Netlify
 ```
-
-## 📝 Scripts
-
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run preview  # Preview production build
-npm run lint     # Run ESLint
+PORT=5000
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing`)
-5. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the MIT License.
-
-## 👤 Author
-
-**Saurav Jha**
-
-- Email: <jhasaurav562@gmail.com>
+MIT License - feel free to use for any purpose!
 
 ---
 
-Made with ❤️ in India 🇮🇳
+Made with ❤️ by Saurav Jha
