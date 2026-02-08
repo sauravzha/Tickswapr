@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper to check if user is the admin
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.email == 'jhasaurav562@gmail.com';
+    }
+    
+    // Helper to check if user is the owner of the resource
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // PDF/Image storage rules (if you were using storage, but this is firestore)
+    // For Firestore collections:
+
+    // TICKETS COLLECTION
+    match /tickets/{ticketId} {
+      // Anyone can read active tickets
+      allow read: if true;
+      
+      // Auth users can create
+      allow create: if isAuthenticated();
+      
+      // Only owner or admin can update/delete
+      // Also allow updates if it's just a view increment (if handled by client, though risky)
+      allow update: if isAdmin() || (isAuthenticated() && resource.data.sellerId == request.auth.uid);
+      
+      allow delete: if isAdmin() || (isAuthenticated() && resource.data.sellerId == request.auth.uid);
+    }
+
+    // REQUESTS COLLECTION
+    match /requests/{requestId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin() || (isAuthenticated() && resource.data.user.uid == request.auth.uid);
+    }
+
+    // USERS COLLECTION (if we had one, but we rely on Auth for now)
+    match /users/{userId} {
+      allow read, write: if isOwner(userId) || isAdmin();
+    }
+  }
+}
